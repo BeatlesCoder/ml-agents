@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1689615671",
+        "python_version": "3.8.13 (default, Oct 19 2022, 22:38:03) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\wenzhao\\anaconda3\\envs\\dogai\\Scripts\\mlagents-learn DogAI.yaml",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1689615732"
+    },
+    "total": 60.7502748,
+    "count": 1,
+    "self": 0.004031600000004687,
+    "children": {
+        "run_training.setup": {
+            "total": 0.04433989999999999,
+            "count": 1,
+            "self": 0.04433989999999999
+        },
+        "TrainerController.start_learning": {
+            "total": 60.7019033,
+            "count": 1,
+            "self": 9.339999999724569e-05,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 60.7017922,
+                    "count": 1,
+                    "self": 60.7017922
+                },
+                "TrainerController._save_models": {
+                    "total": 1.770000000078653e-05,
+                    "count": 1,
+                    "self": 1.770000000078653e-05
+                }
+            }
+        }
+    }
+}
