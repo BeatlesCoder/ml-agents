@@ -28,8 +28,8 @@ public class DogAI : Agent
         m_Rigidbody.velocity = Vector3.zero;
         m_Rigidbody.angularVelocity = Vector3.zero;
 
-        float x = Random.Range(-2, 2);
-        float z = Random.Range(-2, -2);
+        float x = Random.Range(-4, 4);
+        float z = Random.Range(-4, 4);
         m_Target.position = new Vector3(x, 1f, z);
     }
 
@@ -59,6 +59,7 @@ public class DogAI : Agent
 
        if (transform.position.y < 0)
        {
+           SetReward(-1);
            EndEpisode();    // 此轮训练结果
        }
 
