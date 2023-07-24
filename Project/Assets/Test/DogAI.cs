@@ -11,12 +11,7 @@ public class DogAI : Agent
     [SerializeField] private Rigidbody m_Rigidbody;
     [SerializeField] private float m_Speed;
     [SerializeField] private Transform m_Target;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    [SerializeField] private GameObject m_Ground;
 
 
     // 每一轮开始时调用
@@ -24,13 +19,15 @@ public class DogAI : Agent
     {
         base.OnEpisodeBegin();
 
-        transform.position = new Vector3(1, 0.5f, 1);
+        transform.parent.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+
+        transform.localPosition = new Vector3(Random.Range(-10, 10), 1.0f, Random.Range(-10, 10));
         m_Rigidbody.velocity = Vector3.zero;
         m_Rigidbody.angularVelocity = Vector3.zero;
 
-        float x = Random.Range(-4, 4);
-        float z = Random.Range(-4, 4);
-        m_Target.position = new Vector3(x, 1f, z);
+        float x = Random.Range(-20, 20);
+        float z = Random.Range(-20, 20);
+        m_Target.localPosition = new Vector3(x, 1f, z);
     }
 
     // 收集观察结果
@@ -39,8 +36,8 @@ public class DogAI : Agent
         base.CollectObservations(sensor);
 
         // 观察8个值
-        sensor.AddObservation(m_Target.position);
-        sensor.AddObservation(transform.position);
+        sensor.AddObservation(m_Target.localPosition);
+        sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(m_Rigidbody.velocity.x);
         sensor.AddObservation(m_Rigidbody.velocity.z);
     }
@@ -60,13 +57,15 @@ public class DogAI : Agent
        if (transform.position.y < 0)
        {
            SetReward(-1);
+           m_Ground.GetComponent<MeshRenderer>().material.color = Color.red;
            EndEpisode();    // 此轮训练结果
        }
 
-       float distance = Vector3.Distance(transform.position, m_Target.position);
+       float distance = Vector3.Distance(transform.localPosition, m_Target.localPosition);
        if (distance < 1.2f)
        {
            SetReward(1);    // 给奖励
+           m_Ground.GetComponent<MeshRenderer>().material.color = Color.green;
            EndEpisode();
        }
     }
@@ -78,5 +77,4 @@ public class DogAI : Agent
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
     }
-
 }
